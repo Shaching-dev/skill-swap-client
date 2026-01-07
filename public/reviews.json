@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com",
+    "occupation": "Frontend Developer",
+    "image": "https://randomuser.me/api/portraits/women/68.jpg",
+    "description": "SkillSwap helped me connect with amazing mentors and improve my React skills in just a few weeks!"
+  },
+  {
+    "id": 2,
+    "name": "Mark Thompson",
+    "email": "mark.thompson@example.com",
+    "occupation": "Full-Stack Developer ",
+    "image": "https://randomuser.me/api/portraits/men/75.jpg",
+    "description": "I was able to share my knowledge and teach others while learning advanced backend concepts. Highly recommend SkillSwap!"
+  },
+  {
+    "id": 3,
+    "name": "Sofia Patel",
+    "email": "sofia.patel@example.com",
+    "occupation": "UI/UX Designer Freelance",
+    "image": "https://randomuser.me/api/portraits/women/65.jpg",
+    "description": "Connecting with talented learners and mentors on SkillSwap made learning design patterns so much easier and fun."
+  },
+  {
+    "id": 4,
+    "name": "David Lee",
+    "email": "david.lee@example.com",
+    "occupation": "Backend Engineer",
+    "image": "https://randomuser.me/api/portraits/men/32.jpg",
+    "description": "SkillSwap gave me real opportunities to collaborate with other developers and sharpen my Node.js and MongoDB skills."
+  },
+  {
+    "id": 5,
+    "name": "Emma Wilson",
+    "email": "emma.wilson@example.com",
+    "occupation": "Data Analyst",
+    "image": "https://randomuser.me/api/portraits/women/22.jpg",
+    "description": "I love the way SkillSwap connects learners and mentors. The platform is simple, effective, and engaging."
+  },
+  {
+    "id": 6,
+    "name": "James Anderson",
+    "email": "james.anderson@example.com",
+    "occupation": "Mobile Developer",
+    "image": "https://randomuser.me/api/portraits/men/41.jpg",
+    "description": "SkillSwap allowed me to share my mobile development projects and receive valuable feedback. Amazing community!"
+  }
+]

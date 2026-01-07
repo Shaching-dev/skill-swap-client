@@ -23,9 +23,11 @@
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
+  font-style: italic;
 }
 
 .active {
   color: rgb(6, 194, 6);
   font-weight: bold;
+  /* background-color: rgb(184, 252, 184); */
 }
