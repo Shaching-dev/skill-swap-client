@@ -1,10 +1,22 @@
 import React from "react";
 import Logo from "../Logo/Logo";
 import Container from "../Container/Container";
+import { NavLink } from "react-router";
 
 const Navbar = () => {
+  const links = (
+    <>
+      <NavLink to={"/Explore"}>Explore</NavLink>
+      <NavLink to={"/services"}>Our Services</NavLink>
+      <NavLink to={"/About"}>About</NavLink>
+      <NavLink to={"/contribution"}>Contribution</NavLink>
+      <NavLink to={"/member"}>Be A Member</NavLink>
+      <NavLink to={"/Contact"}>Contact</NavLink>
+    </>
+  );
+
   return (
-    <div className=" bg-base-100 shadow-md">
+    <div className=" bg-base-300 shadow-md">
       <Container>
         <div className="navbar">
           <div className="navbar-start">
@@ -28,57 +40,48 @@ const Navbar = () => {
                   />{" "}
                 </svg>
               </div>
-              <ul
+              <span
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                <li>
-                  <a>Item 1</a>
-                </li>
-                <li>
-                  <a>Parent</a>
-                  <ul className="p-2">
-                    <li>
-                      <a>Submenu 1</a>
-                    </li>
-                    <li>
-                      <a>Submenu 2</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a>Item 3</a>
-                </li>
-              </ul>
+                className="menu menu-sm links font-semibold dropdown-content bg-base-100 space-y-3 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                {links}
+              </span>
             </div>
             <div>
               <Logo />
             </div>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1">
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <details>
-                  <summary>Parent</summary>
-                  <ul className="p-2 bg-base-100 w-40 z-1">
-                    <li>
-                      <a>Submenu 1</a>
-                    </li>
-                    <li>
-                      <a>Submenu 2</a>
-                    </li>
-                  </ul>
-                </details>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
-            </ul>
+            <span className="menu links font-semibold menu-horizontal px-1 space-x-5">
+              {links}
+            </span>
           </div>
           <div className="navbar-end">
-            <a className="btn">Button</a>
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex="-1"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                <li>
+                  <a className="justify-between">Profile</a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a>Logout</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </Container>

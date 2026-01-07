@@ -5,8 +5,8 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: blue;
-  --color-secondary: teal;
+  --color-primary: #06c206;
+  --color-secondary: yellow;
 }
 
 .poppins {
@@ -15,9 +15,17 @@
   font-style: italic;
 }
 
+.links {
+  font-family: "Poppins", sans-serif;
+}
+
 .roboto {
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-style: normal;
   font-variation-settings: "wdth" 100;
+}
+
+.active {
+  color: rgb(6, 194, 6);
+  font-weight: bold;
 }
