@@ -1,14 +1,21 @@
 import { Eye, EyeClosed } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "../../Hooks/useAuth";
+import axios from "axios";
 
 const Registration = () => {
   const [preview, setPreview] = useState(null);
   const [showPassword, setShowPassowrd] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const { registerUser, updateUserProfile } = useAuth();
+
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   const photoFile = watch("profilePhoto");
@@ -20,11 +27,39 @@ const Registration = () => {
     }
   }, [photoFile]);
 
-  const handleRegister = (data) => {
-    if (data.profilePhoto && data.profilePhoto[0]) {
-      console.log("Uploaded file name:", data.profilePhoto[0].name);
+  const handleRegister = async (data) => {
+    try {
+      // 1. Get image file
+      const imageFile = data.profilePhoto[0];
+
+      // 2. Upload image
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      const imageApi = `https://api.imgbb.com/1/upload?expiration=600&key=${
+        import.meta.env.VITE_image_api_key
+      }`;
+
+      // 3. Create user
+      const result = await registerUser(data.email, data.password);
+      console.log(result.user);
+
+      // 4. Upload image to imgbb
+      const imageRes = await axios.post(imageApi, formData);
+      const photoURL = imageRes.data.data.url;
+
+      // 5. Update user profile
+      await updateUserProfile({
+        displayName: data.name,
+        photoURL: photoURL,
+      });
+
+      reset();
+      setPreview(null);
+      console.log("Profile updated successfully ✅");
+    } catch (error) {
+      console.error("Registration failed ❌", error);
     }
-    console.log("Full form data:", data);
   };
 
   return (
@@ -55,9 +90,13 @@ const Registration = () => {
                     )}
                   </div>
                   <input
+                    {...register("profilePhoto", { required: true })}
+                    ref={(e) => {
+                      register("profilePhoto").ref(e);
+                      fileInputRef.current = e;
+                    }}
                     type="file"
                     accept="image/*"
-                    {...register("profilePhoto", { required: true })}
                     className="hidden"
                   />
                 </label>
