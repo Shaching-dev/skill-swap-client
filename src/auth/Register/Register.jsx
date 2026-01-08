@@ -1,18 +1,30 @@
 import { Eye, EyeClosed } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const Registration = () => {
+  const [preview, setPreview] = useState(null);
+  const [showPassword, setShowPassowrd] = useState(false);
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
-
-  const [showPassword, setShowPassowrd] = useState(false);
+  const photoFile = watch("profilePhoto");
+  useEffect(() => {
+    if (photoFile && photoFile[0]) {
+      const url = URL.createObjectURL(photoFile[0]);
+      setPreview(url);
+      return () => URL.revokeObjectURL(url);
+    }
+  }, [photoFile]);
 
   const handleRegister = (data) => {
-    console.log(data);
+    if (data.profilePhoto && data.profilePhoto[0]) {
+      console.log("Uploaded file name:", data.profilePhoto[0].name);
+    }
+    console.log("Full form data:", data);
   };
 
   return (
@@ -27,6 +39,33 @@ const Registration = () => {
             <form
               onSubmit={handleSubmit(handleRegister)}
               className="flex flex-col gap-4">
+              <div className="flex flex-col items-center">
+                <label className="cursor-pointer">
+                  <div className="w-32 h-32 rounded-full bg-gray-200 border overflow-hidden flex items-center justify-center">
+                    {preview ? (
+                      <img
+                        src={preview}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-sm text-gray-500">
+                        Select Photo
+                      </span>
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    {...register("profilePhoto", { required: true })}
+                    className="hidden"
+                  />
+                </label>
+                {errors.profilePhoto && (
+                  <p className="text-error text-sm mt-1">Photo is required</p>
+                )}
+              </div>
+
               {/* Name */}
               <div className="form-control">
                 <label className="label">
@@ -63,18 +102,6 @@ const Registration = () => {
                   </p>
                 )}
               </div>
-
-              {/* Photo URL */}
-              {/* <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Photo URL</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Photo URL"
-                  className="input input-bordered w-full"
-                />
-              </div> */}
 
               {/* Password */}
               <div className="form-control relative">
