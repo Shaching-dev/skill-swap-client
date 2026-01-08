@@ -1,6 +1,20 @@
-import React from "react";
+import { Eye, EyeClosed } from "lucide-react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Registration = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [showPassword, setShowPassowrd] = useState(false);
+
+  const handleRegister = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -10,17 +24,25 @@ const Registration = () => {
             <h2 className="text-2xl font-bold text-center mb-6">
               Create an Account
             </h2>
-            <form className="flex flex-col gap-4">
+            <form
+              onSubmit={handleSubmit(handleRegister)}
+              className="flex flex-col gap-4">
               {/* Name */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Full Name</span>
                 </label>
                 <input
+                  {...register("name", { required: true })}
                   type="text"
                   placeholder="Your Name"
                   className="input input-bordered w-full"
                 />
+                {errors.name?.type === "required" && (
+                  <p className="text-red-600 font-bold my-2">
+                    This field is required
+                  </p>
+                )}
               </div>
 
               {/* Email */}
@@ -29,14 +51,21 @@ const Registration = () => {
                   <span className="label-text">Email</span>
                 </label>
                 <input
+                  {...register("email", { required: true })}
                   type="email"
                   placeholder="Email"
                   className="input input-bordered w-full"
                 />
+
+                {errors.email?.type === "required" && (
+                  <p className="text-red-600 font-bold my-2">
+                    This field is required
+                  </p>
+                )}
               </div>
 
               {/* Photo URL */}
-              <div className="form-control">
+              {/* <div className="form-control">
                 <label className="label">
                   <span className="label-text">Photo URL</span>
                 </label>
@@ -45,40 +74,77 @@ const Registration = () => {
                   placeholder="Photo URL"
                   className="input input-bordered w-full"
                 />
-              </div>
+              </div> */}
 
               {/* Password */}
-              <div className="form-control">
+              <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
+
                 <input
-                  type="password"
+                  {...register("password", { required: true })}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full pr-10"
                 />
+
+                {/* Eye Icon */}
+                <div
+                  onClick={() => setShowPassowrd(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer flex items-center text-gray-500 hover:text-gray-700">
+                  {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
+                </div>
+
+                {/* Reserve space for error */}
+                <p className="text-red-600 font-bold mt-1 min-h-[1.25rem]">
+                  {errors.password?.type === "required" &&
+                    "This field is required"}
+                </p>
               </div>
 
               {/* Confirm Password */}
-              <div className="form-control">
+              {/* <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Confirm Password</span>
                 </label>
                 <input
-                  type="password"
+                  {...register("confirmPassword", { required: true })}
+                  type={showPassword ? "text" : "password"}
                   placeholder="Confirm Password"
                   className="input input-bordered w-full"
                 />
-              </div>
+                {errors.confirmPassword?.type === "required" && (
+                  <p className="text-red-600 font-bold my-2">
+                    This field is required
+                  </p>
+                )}
+
+                <div
+                  onClick={() => setShowPassowrd(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-1/10">
+                  {showPassword ? <Eye /> : <EyeClosed />}
+                </div>
+              </div> */}
 
               {/* Terms & Conditions */}
               <div className="form-control">
                 <label className="label cursor-pointer">
-                  <input type="checkbox" className="checkbox mr-2" />
+                  <input
+                    {...register("check", { required: true })}
+                    type="checkbox"
+                    className="checkbox mr-2"
+                  />
                   <span className="label-text">
                     I agree to the Terms & Conditions
                   </span>
                 </label>
+
+                {errors.check?.type === "required" && (
+                  <p className="text-red-600 font-bold my-2">
+                    This field is required
+                  </p>
+                )}
               </div>
 
               {/* Register Button */}
